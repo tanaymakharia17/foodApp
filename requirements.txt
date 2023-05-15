@@ -1,2 +1,5 @@
 Django
 pillow
+psycopg2 # pip install psycopg2-binary
+psycopg
+python-decouple

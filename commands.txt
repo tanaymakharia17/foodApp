@@ -1,0 +1,2 @@
+chmod +x git_script.sh   //not required again and again, give permission to run from terminal
+./git_script.sh

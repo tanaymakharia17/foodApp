@@ -1,0 +1,10 @@
+{% autoescape off %}
+
+Hi {{ user.first_name }}, 
+{% if is_approved %}
+Congratulations! Your restaurant has been approved
+{% else %}
+Sorry you are not eligible for registration. For more details, please contact foodonline@gmail.com
+{% endif %}
+
+{% endautoescape %}

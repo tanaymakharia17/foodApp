@@ -38,12 +38,12 @@
                                     {% if not fooditems %}
                                         <h5 class="test-center"> No food items found in this category.</h5>
                                         <div class="text-center">
-                                            <a href="#" class="btn btn-success">
+                                            <a href="{% url 'add_food' %}" class="btn btn-success">
                                                 <i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Add Food
                                             </a>
                                         </div>
                                     {% else %}
-                                    <a href="#" class="btn btn-success float-right m-1"><i class="fa fa-plus" aria-hidden="true"></i> Add Food</a>
+                                    <a href="{% url 'add_food' %}" class="btn btn-success float-right m-1"><i class="fa fa-plus" aria-hidden="true"></i> Add Food</a>
                                     <table class="table table-hover table-borderless">
                                         <tbody>
 											{% for food in fooditems %}
@@ -51,19 +51,19 @@
                                             <td class="text-left">{{ forloop.counter }}</td>
                                             <td class="text-left"><img src="{{ food.image.url }}" alt="Food Image" width="240"></td>
                                             <td class="text-left">
-												<a href="#">
 													<p class="mb-0 font-weight-bold">
 														{{ food }}
 													</p>
 													<small  class="text-muted">
 														{{ food.description }}
 													</small>
-												</a>
 											</td>
+											<td class="text-left">₹ {{ food.price }}</td>
+											<td class="text-left">{% if food.is_available %} <span style="color:green;">Available </span> {% else %} <span style="color:red;">Sold Out</span> {% endif %}</td>
                                             <td>
 
-												<i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; &nbsp; 
-												<i class="fa fa-trash text-danger" aria-hidden="true"></i> 
+												<a href="{% url 'edit_food' food.id %}" style="color:unset;" ><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; &nbsp; 
+												<a href="{% url 'delete_food' food.id %}" onclick="return confirm('Are you sure you want to delete {{ food }} ?')"><i class="fa fa-trash text-danger" aria-hidden="true"></i> </a>
 											</td>
                                           </tr>
 										  {% endfor %}

@@ -71,6 +71,9 @@ cover/
 # Translations
 *.mo
 
+# Script
+git_script.sh
+
 # Django stuff:
 
 # Flask stuff:

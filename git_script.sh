@@ -1,4 +1,4 @@
 git add .
-git commit -m "Cart functionality 17"
+git commit -m "Search Functionality"
 git push origin main
 

@@ -4,3 +4,5 @@ psycopg2 # pip install psycopg2-binary
 psycopg
 python-decouple
 GDAL
+gdal==3.4.0
+# python3 -c "from osgeo import gdal"

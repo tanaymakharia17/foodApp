@@ -62,6 +62,7 @@ def add_to_cart(request, food_id=None):
     if request.user.is_authenticated:
         if is_ajax(request):
             try:
+                print(food_id)
                 fooditem = FoodItem.objects.get(id=food_id)
                 
                 # Check if the user has already added food to the cart
@@ -74,9 +75,10 @@ def add_to_cart(request, food_id=None):
 
                 except:
                     chkCart = Cart.objects.create(user=request.user, fooditem=fooditem, quantity=1)
+                    chkCart.save()
                     return JsonResponse({'status': 'success', 'message': 'Added the food to the cart', 'cart_counter': get_cart_counter(request), 'qty': chkCart.quantity, 'cart_amount': get_cart_amounts(request)})
-
             except:
+                print('error11============================')
                 return JsonResponse({'status': 'failed', 'message': 'This food dosen\'t exist'})
         else:
             return JsonResponse({'status': 'failed', 'message': 'Invalid request'})

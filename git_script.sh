@@ -1,4 +1,4 @@
 git add .
-git commit -m "User current location and organized the home page"
+git commit -m "Bussiness hours feature added"
 git push origin main
 

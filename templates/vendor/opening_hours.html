@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+	<!--Main Wrapper-->
+	<div class="wrapper">
+
+
+		
+		<!-- Main Section Start -->
+		<div class="main-section">
+			<!-- add cover template -->
+            {% include 'includes/cover.html' %}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<!-- Load  vendor sidebar -->
+                            {% include 'includes/v_sidebar.html' %}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+
+
+									<h5 class="text-uppercase">OPENING HOURS
+										<!-- <button class="btn btn-secondary float-right" onclick="history.back()"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+										<br>
+										<br> -->
+									</h5>
+                                    <hr/>
+                                    
+                                    <table class="table opening_hours" style="width: 500px; border: none !important">
+                                        <tbody>
+                                            {% for hour in opening_hours %}
+                                                <tr id="hour-{{hour.id}}">
+                                                    <td><b>{{ hour }}</b></td>
+                                                    <td>
+                                                        {% if hour.is_closed %}
+                                                            Closed
+
+                                                        {% else %}
+                                                        {{ hour.from_hour }} - {{ hour.to_hour }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-danger btn-sm remove_hour" data-url="{% url 'remove_opening_hours' hour.id %}">Remove</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <br>
+                                    <form id="opening_hours">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                {{ form.day }}
+                                            </div>
+                                            <div class="col-md-2">
+                                                {{ form.from_hour }}
+                                            </div>
+                                            <div class="col-md-2">
+                                                {{ form.to_hour }}
+                                            </div>
+                                            <div class="col-md-2">
+                                                {{ form.is_closed }} Set as closed
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="hidden" value="{% url 'add_opening_hours' %}" id="add_hour_url">
+                                                <button id="add_hour" class="btn btn-success">
+                                                    Add Hours
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+
+
+
+{% include 'includes/alerts.html' %}
+
+{% endblock %}

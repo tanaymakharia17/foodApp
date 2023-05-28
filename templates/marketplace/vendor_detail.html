@@ -41,7 +41,7 @@
                                     <a href="#" class="reviews-sortby-active">
                                         <span>Today :</span>
                                         {% for i in current_opening_hours %}
-                                        <span>{% if i.is_closed %}Closed{% else %}{{ i.from_hour }} - {{ i.to_hour }}{% endif %}</span>
+                                        <span>{% if i.is_closed %}Closed{% else %}{{ i.from_hour }} - {{ i.to_hour }}{% endif %}|</span>
                                         
                                         {% endfor %}
                                         <i class="icon-chevron-small-down"></i>

@@ -1,4 +1,4 @@
 git add .
-git commit -m "Dynamic Tax module added"
+git commit -m "Customer profile update"
 git push origin main
 

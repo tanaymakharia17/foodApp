@@ -39,3 +39,11 @@ class UserProfileForm(forms.ModelForm):
         #         self.fields[field].widget.attrs['readonly'] = 'readonly'
         self.fields['latitude'].widget.attrs['readonly'] = 'readonly'
         self.fields['longitude'].widget.attrs['readonly'] = 'readonly'
+
+
+
+
+class UserInfoForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'phone_number']

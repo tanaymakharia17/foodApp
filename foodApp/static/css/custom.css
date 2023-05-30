@@ -22,3 +22,29 @@ table > tbody > tr > td {
 #opening_hours {
     padding: 5px 10px !important;
 }
+
+/* hide radio button */
+
+.payment-method [type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+}
+/* image style */
+.payment-method [type="radio"] + img {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin: 0 10px;
+    padding: 5px;
+}
+
+/* Checked style */
+.payment-method [type="radio"]:checked + img {
+    border: 2px solid #f00;
+    box-shadow: 0 0 5px 0 rgba(255, 0, 0, 0.5);
+}

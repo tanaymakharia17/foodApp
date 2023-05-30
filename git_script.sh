@@ -1,4 +1,4 @@
 git add .
-git commit -m "Customer profile update"
+git commit -m "Order food functionality"
 git push origin main
 

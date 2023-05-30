@@ -11,7 +11,8 @@ from datetime import date, datetime
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D
 from django.contrib.gis.db.models.functions import Distance
-# Create your views here.
+from orders.forms import OrderForm
+from accounts.models import UserProfile
 
 
 
@@ -175,3 +176,30 @@ def search(request):
     }
     return render(request, 'marketplace/listings.html', context)
 
+
+
+@login_required(login_url='login')
+def checkout(request):
+    cart_items = Cart.objects.filter(user=request.user).order_by('created_at')
+    cart_count = cart_items.count()
+    if cart_count <= 0:
+        return redirect('marketplace')
+    user_profile = UserProfile.objects.get(user=request.user)
+    default_values = {
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+        'email': request.user.email,
+        'phone': request.user.phone_number,
+        'address': user_profile.address,
+        'city': user_profile.city,
+        'state': user_profile.state,
+        'country': user_profile.country,
+        'pin_code': user_profile.pin_code
+    }
+    form = OrderForm(initial=default_values)
+
+    context = {
+        'form': form,
+        'cart_items': cart_items,
+    }
+    return render(request, 'marketplace/checkout.html', context)

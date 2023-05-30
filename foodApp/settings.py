@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'menu',
     'marketplace',
     'django.contrib.gis',
-    'customers'
+    'customers',
+    'orders'
 ]
 
 MIDDLEWARE = [
@@ -73,7 +74,8 @@ TEMPLATES = [
                 'accounts.context_processors.get_google_api',
                 'marketplace.context_processors.get_cart_counter', # get_cart_amounts
                 'marketplace.context_processors.get_cart_amounts',
-                'accounts.context_processors.get_user_profile'
+                'accounts.context_processors.get_user_profile',
+                'accounts.context_processors.get_paypal_client_id',
             ],
         },
     },
@@ -166,4 +168,9 @@ DEFAULT_FROM_EMAIL = f'foodOnline Market <{EMAIL_HOST_USER}>'
 
 
 
-GOOGLE_API_KEY = 'AIzaSyC4yTudrg9pTcB2khAgrbCMBFVvbviohVU'
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
+
+PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'

@@ -11,7 +11,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from vendor.models import Vendor
 from django.template.defaultfilters import slugify
-
+from orders.models import Order
 # from foodApp.views import home
 
 # Restrict the vendor from accessing the cusomer page
@@ -142,7 +142,15 @@ def logout(request):
 @login_required(login_url='login')
 @user_passes_test(check_role_customer)
 def custDashboard(request):
-    return render(request, 'accounts/custDashboard.html')
+    recent_orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
+    orders_count = recent_orders.count()
+
+    recent_orders = recent_orders[:5]
+    context = {
+        'recent_orders': recent_orders,
+        'orders_count': orders_count
+    }
+    return render(request, 'accounts/custDashboard.html', context)
 
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)

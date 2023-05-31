@@ -12,6 +12,7 @@ from menu.forms import CategoryForm, FoodItemForm
 from django.template.defaultfilters import slugify
 from django.http import HttpResponse, JsonResponse
 from django.db import IntegrityError
+from orders.models import Order, OrderedFood
 
 def check_role_vendor(user):
     if user.role == 1:
@@ -249,3 +250,35 @@ def remove_opening_hours(request, pk=None):
             hour = get_object_or_404(OpeningHour, pk=pk)
             hour.delete()
             return JsonResponse({'status': 'success', 'id': pk})
+
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def order_detail(request, order_number):
+    try:
+        print(order_number)
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_food = OrderedFood.objects.filter(order=order, fooditem__vendor=Vendor.objects.get(user=request.user))
+        print(ordered_food)
+        print(order)
+        context = {
+            'order': order,
+            'ordered_food': ordered_food
+        }
+        return render(request, 'vendor/order_detail.html', context)
+    except:
+        return redirect('vendor_my_orders')
+    
+
+
+
+
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    context = {
+        'orders': orders
+    }
+    return render(request, 'vendor/my_orders.html', context)

@@ -33,7 +33,7 @@ class Order(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)
-    vendors = models.ManyToManyField(Vendor, blank=True)
+    vendors = models.ManyToManyField(Vendor)
     order_number = models.CharField(max_length=40)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -58,7 +58,7 @@ class Order(models.Model):
     @property
     def name(self):
         return f'{self.first_name} {self.last_name}'
-
+    
     def order_placed_to(self):
         return ", ".join([str(i) for i in self.vendors.all()])
 
@@ -67,6 +67,7 @@ class Order(models.Model):
         subtotal = 0
         tax = 0
         tax_dict = {}
+        print(self.total_data)
         if self.total_data:
             total_data = json.loads(self.total_data)
             data = total_data.get(str(vendor.id))
@@ -89,6 +90,7 @@ class Order(models.Model):
             'tax_dict': tax_dict, 
             'grand_total': grand_total,
         }
+        print(context)
 
         return context
 

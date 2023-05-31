@@ -36,15 +36,67 @@
 
   <table bgcolor="#EAF0F6" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 60px 60px;">
     <tr>
-      <td>
-        <h2 style="text-align: center;">Activate Your Account</h2>
-        <p style="text-align: center;">Please verify your email address to activate your account.</p>
-        <div style="text-align: center;">
-          <a href="http://{{domain}}{% url 'activate' uidb64=uid token=token %}" class="activate-btn" style="color: #fff;">Activate Now</a>
-        </div>
-      </td> 
+        <td>
+            <h2 style="text-align:center;">Thank you for your order</h2>
+            <p>Review your order information below.</p>
+        </td>
+    </tr>
+    <tr>
+        <td>Order date: {{ order.created_at }}</td>
+    </tr>
+    <tr>
+        <td>Order number: {{ order.order_number }}</td>
+    </tr>
+    <tr>
+        <td>Payment method: {{ order.payment_method }}</td>
+    </tr>
+    <tr>
+        <td>Transaction ID: {{ order.payment }}</td>
     </tr>
   </table>
+
+  <!-- Ordered food table -->
+  <table bgcolor="#EAF0F6" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 60px 60px;">
+
+    <tbody>
+        <tr>
+            <th>Image</th>
+            <th>Food Item</th>
+            <th>Qty</th>
+            <th>Price</th>
+        </tr>
+
+        {% for food in ordered_food_to_vendor %}
+        <tr>
+            <td><img src="http://{{domain}}{{ food.fooditem.image.url }}" alt="Food Image" width="60"></td>
+            <td><p style="margin: 0;">{{ food.fooditem }}</p>
+            <small><a href="http://{{ domain }}{% url 'vendor_detail' food.fooditem.vendor.vendor_slug %}" style="color:#ccc;">{{ food.fooditem.vendor.vendor_name }}</a></small>
+            </td>
+            <td>{{ food.quantity }}</td>
+            <td>${{ food.price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+  </table>
+
+  <!-- Order amounts -->
+  <table bgcolor="#EAF0F6" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 60px 60px;">
+    <tbody>
+        <tr>Subtotal: ${{ vendor_subtotal }}</tr>
+        
+        {% for key, val in tax_data.items %}
+            {% for i, j in val.items %}
+                <tr>
+                    <td>{{ key }} <small>({{ i }}%)</small> : <span>${{ j }}</span></td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+
+        <tr>Grand total: ${{ vendor_grand_total }}</tr>
+    </tbody>
+  </table>
+
 
   <table role="presentation" bgcolor="#C33332" width="100%">
       <tr>

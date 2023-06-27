@@ -1,7 +1,7 @@
-Django based food app like zomato, swiggy, etc.
-
-Tech stack - Django | HTML | CSS | PostgreSQL
-
+Tech stack: Django | PostgreSQL | HTML/CSS
+- Implemented customer-friendly features like restaurant search, user-friendly cart management, and secure payment gateways (Razorpay, PayPal).
+- Created a customer dashboard for order history tracking and expenditure analysis, ensuring a seamless user experience.
+- Designed vendor-specific functionalities for editing details, menu creation, order management, and revenue tracking via a dedicated dashboard, empowering restaurant owners with streamlined operations.
 
 
 
